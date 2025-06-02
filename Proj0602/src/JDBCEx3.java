@@ -1,11 +1,10 @@
-import java.io.*;
 import java.sql.*;
 
-public class JDBCEx2 {
+public class JDBCEx3 {
 
-    public static void main(String[] args) {
-
-        try {
+	public static void main(String[] args) {
+		
+		try {
             // MySQL JDBC 드라이버 로드
             Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -15,21 +14,15 @@ public class JDBCEx2 {
 
             // SQL 쿼리 실행을 위한 Statement 객체 생성
             Statement stmt = conn.createStatement();
-            String sql = "select * from student;";
+            
+//          String sql = "select * from student;"; 
+//          String sql = "insert into student values('0000004', '동미래', 'AI S/w');";
+//          String sql = "update student set dept ='인공지능' where name = '동미래';";
+            
+            String sql = "delete from student where name = '동미래';";
+            stmt.executeUpdate(sql);	// 실행
+            System.out.println("삭제 완료");
 
-            // SQL 실행 후 결과 받기
-            ResultSet rs = stmt.executeQuery(sql);
-
-            // 결과 출력 (각 학생의 정보)
-            while (rs.next()) {
-                System.out.println(rs.getString(1));
-                System.out.println("\t |" + rs.getString(2));
-                System.out.println("\t |" + rs.getString(3));
-                System.out.println();
-            }
-
-            // DB 연결 종료
-            rs.close();
             stmt.close();
             conn.close();
 
@@ -37,5 +30,6 @@ public class JDBCEx2 {
             // 예외 처리
             e.printStackTrace();
         }
-    }
+	}
+
 }
